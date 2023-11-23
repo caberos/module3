@@ -2,18 +2,19 @@ package com.homework.demo.services;
 
 import com.homework.demo.domain.entities.UserDetail;
 import com.homework.demo.domain.entities.UserRol;
+import com.homework.demo.dto.UserRolDTO;
 
 import java.util.List;
 import java.util.Optional;
 
 public interface UserRolServices {
-    List<UserRol> listUserRol();
+    List<UserRolDTO> listUserRol();
 
-    Optional<UserRol> getUserRol(Integer id);
+    UserRolDTO getUserRol(Integer id);
 
-    Optional<UserRol> createUserRol(UserRol userRol);
+    UserRolDTO createUserRol(UserRolDTO userRol);
 
-    Optional<UserRol> updateUserRol(Integer id, UserRol userRol);
+    UserRolDTO updateUserRol(Integer id, UserRolDTO userRol);
 
-    Optional<UserRol> deleteUserRol(Integer id);
+    Integer deleteUserRol(Integer id);
 }

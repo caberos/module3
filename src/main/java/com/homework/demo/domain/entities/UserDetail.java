@@ -12,6 +12,7 @@ public class UserDetail {
     @Id
     @SequenceGenerator(name = "user_sequence", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "user_sequence")
+    @Column(name = "user_detail_id")
     private Long id;
     @Column(name = "first_name")
     private String firstName;

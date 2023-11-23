@@ -1,19 +1,20 @@
 package com.homework.demo.services;
 
 import com.homework.demo.domain.entities.UserDetail;
+import com.homework.demo.dto.UserDetailDTO;
 
 import java.util.List;
 import java.util.Optional;
 
 public interface UserDetailServices {
 
-    List<UserDetail> listUserDetails();
+    List<UserDetailDTO> listUserDetails();
 
-    Optional<UserDetail> getUserDetail(Long id);
+    UserDetailDTO getUserDetail(Long id);
 
-    Optional<UserDetail> createUserDetail(UserDetail userDetail);
+    UserDetailDTO createUserDetail(UserDetailDTO userDetail);
 
-    Optional<UserDetail> updateUserDetail(Long id, UserDetail userDetail);
+    UserDetailDTO updateUserDetail(Long id, UserDetailDTO userDetail);
 
-    Optional<UserDetail> deleteUserDetail(Long id);
+    Long deleteUserDetail(Long id);
 }

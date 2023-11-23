@@ -1,41 +1,58 @@
 package com.homework.demo.web.rest;
 
-import com.homework.demo.domain.entities.UserDetail;
-import com.homework.demo.domain.entities.UserRol;
-import com.homework.demo.services.UserDetailServices;
+import com.homework.demo.dto.UserRolDTO;
+import com.homework.demo.services.UserRolServices;
+import com.homework.demo.services.mapper.UserRolMapper;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.List;
 
 @RestController
 @RequestMapping("/v1/userRol")
 public class UserRolController {
 
-    private final UserDetailServices userDetailServices;
+    private final UserRolServices userRolServices;
+    private final UserRolMapper userRolMapper;
 
-    public UserRolController(UserDetailServices userDetailServices) {
-        this.userDetailServices = userDetailServices;
+    public UserRolController(UserRolServices userRolServices, UserRolMapper userRolMapper) {
+        this.userRolServices = userRolServices;
+        this.userRolMapper = userRolMapper;
     }
 
     @GetMapping(path = "/getAllObjects")
-    public ResponseEntity<List<UserDetail>> getAllUsersRol() {
-        return ResponseEntity.ok().body(userDetailServices.listUserDetails());
+    public ResponseEntity<List<UserRolDTO>> getAllUsersRol() {
+        return ResponseEntity.ok().body(userRolServices.listUserRol());
     }
 
     @GetMapping(path = "/getUser/{id}")
-    public void getUserRol(@PathVariable("id") Integer userRolId) {
+    public ResponseEntity<UserRolDTO> getUserRol(@PathVariable("id") Integer userRolId) {
+        return ResponseEntity.ok().body(userRolServices.getUserRol(userRolId));
     }
 
     @PostMapping(path = "/create")
-    public void createUser(@RequestBody UserRol userRol) {
+    public ResponseEntity<UserRolDTO> createRolUser(@RequestBody UserRolDTO userRol) throws URISyntaxException {
+        if (userRol.getId() != null) {
+            throw new IllegalArgumentException(
+                    "A user  is been created with this userId, please review the  request body");
+        }
+        return ResponseEntity.created(
+                new URI("/v1/userRol" + userRol.getId())).body(userRolServices.createUserRol(userRol));
     }
 
+
     @PutMapping(path = "/update/{id}")
-    public void updateUserRol(@PathVariable("id") Integer userIdRol, @RequestBody UserRol userRol) {
+    public ResponseEntity<UserRolDTO> updateUserRol(@PathVariable("id") Integer userIdRol, @RequestBody UserRolDTO userRol) {
+        return ResponseEntity.ok().body(userRolServices.updateUserRol(userIdRol, userRol));
     }
 
     @DeleteMapping(path = "/delete/{id}")
-    public void deleteUserRol(@PathVariable("id") Integer userIdRol) {
+    public Integer deleteUserRol(@PathVariable("id") Integer userIdRol) {
+        userRolServices.deleteUserRol(userIdRol);
+        return userIdRol;
     }
+
+
 }

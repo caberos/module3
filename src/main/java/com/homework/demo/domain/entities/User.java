@@ -6,11 +6,12 @@ import jakarta.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "user")
+@Table(name = "users")
 public class User {
     @Id
     @SequenceGenerator(name = "my_sequence", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "my_sequence")
+    @Column(name = "users_id")
     private Long id;
 
     @Column(name = "username")

@@ -9,6 +9,7 @@ public class Rol {
     @Id
     @SequenceGenerator(name = "rol_sequence", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "rol_sequence")
+    @Column(name = "rol_id")
     private Integer id;
 
     @Column(name = "name")

@@ -1,22 +1,20 @@
 package com.homework.demo.services;
 
 import com.homework.demo.domain.entities.Rol;
-import com.homework.demo.domain.entities.UserDetail;
-import org.springframework.data.relational.core.sql.In;
+import com.homework.demo.dto.RolDTO;
 
 import java.util.List;
-import java.util.Optional;
 
 public interface RolServices {
 
-    List<Rol> listRol();
+    List<RolDTO> listRol();
 
 
-    Optional<Rol> getRol(Integer id);
+    RolDTO getRol(Integer id);
 
-    Optional<Rol> createRol(Rol rol);
+    RolDTO createRol(RolDTO rol);
 
-    Optional<Rol> updateRol(Integer id, Rol rol);
+    RolDTO updateRol(Integer id, RolDTO rol);
 
-    Optional<Rol> deleteRol(Integer id);
+    Integer deleteRol(Integer id);
 }

@@ -19,15 +19,15 @@ public class UserRol {
     @Column(name = "created_at", columnDefinition = "TIMESTAMP")
     private LocalDateTime create_at;
 
-    @OneToMany(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id")
     private User userId;
 
-    @OneToMany(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "rol_id")
-    private User rolId;
+    private Rol rolId;
 
-    public UserRol(Integer id, Boolean active, LocalDateTime create_at, User userId, User rolId) {
+    public UserRol(Integer id, Boolean active, LocalDateTime create_at, User userId, Rol rolId) {
         this.id = id;
         this.active = active;
         this.create_at = create_at;
@@ -70,11 +70,11 @@ public class UserRol {
         this.userId = userId;
     }
 
-    public User getRolId() {
+    public Rol getRolId() {
         return rolId;
     }
 
-    public void setRolId(User rolId) {
+    public void setRolId(Rol rolId) {
         this.rolId = rolId;
     }
 }
