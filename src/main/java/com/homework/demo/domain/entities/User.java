@@ -9,9 +9,7 @@ import java.time.LocalDateTime;
 @Table(name = "users")
 public class User {
     @Id
-    @SequenceGenerator(name = "my_sequence", allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "my_sequence")
-    @Column(name = "users_id")
+    @Column(name = "id")
     private Long id;
 
     @Column(name = "username")

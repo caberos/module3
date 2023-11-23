@@ -8,7 +8,6 @@ import com.homework.demo.services.mapper.UserRolMapper;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -34,7 +33,7 @@ public class UserRolServicesImplement implements UserRolServices {
         UserRol res = new UserRol();
         for (UserRol aux : listUserRol) {
             if (aux.getId() == id) {
-                res=aux;
+                res = aux;
                 break;
             }
         }
@@ -49,8 +48,8 @@ public class UserRolServicesImplement implements UserRolServices {
     @Override
     public UserRolDTO updateUserRol(Integer id, UserRolDTO userRol) {
         UserRol userRolRes = userRolRepository.getReferenceById(id);
-        userRolRes.setRolId(userRol.getRolId());
-        userRolRes.setUserId(userRol.getUserId());
+        userRolRes.setRol(userRol.getRolId());
+        userRolRes.setUser(userRol.getUserId());
         userRolRes.setActive(userRol.getActive());
         userRolRepository.save(userRolRes);
         return this.userRolMapper.toDto(userRolRes);
@@ -60,5 +59,17 @@ public class UserRolServicesImplement implements UserRolServices {
     public Integer deleteUserRol(Integer id) {
         userRolRepository.deleteById(id);
         return id;
+    }
+
+    @Override
+    public boolean setActive(Integer id) {
+        UserRol userRolRes = userRolRepository.getReferenceById(id);
+        if (userRolRes.getActive()) {
+            userRolRes.setActive(false);
+        } else {
+            userRolRes.setActive(true);
+        }
+        userRolRepository.save(userRolRes);
+        return userRolRes.getActive();
     }
 }

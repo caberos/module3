@@ -1,6 +1,8 @@
 package com.homework.demo.domain.entities;
 
 import jakarta.persistence.*;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import java.time.LocalDateTime;
 
@@ -9,8 +11,7 @@ import java.time.LocalDateTime;
 public class UserRol {
 
     @Id
-    @SequenceGenerator(name = "user_rol_sequence", allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "user_rol_sequence")
+    @Column(name = "id")
     private Integer id;
 
     @Column(name = "active")
@@ -19,20 +20,22 @@ public class UserRol {
     @Column(name = "created_at", columnDefinition = "TIMESTAMP")
     private LocalDateTime create_at;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "user_id")
-    private User userId;
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    @JoinColumn(foreignKey =  @ForeignKey( name = "user_id"), nullable = true)
+    private User user;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "rol_id")
-    private Rol rolId;
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(foreignKey = @ForeignKey(name = "rol_id"), nullable = true)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    private Rol rol;
 
     public UserRol(Integer id, Boolean active, LocalDateTime create_at, User userId, Rol rolId) {
         this.id = id;
         this.active = active;
         this.create_at = create_at;
-        this.userId = userId;
-        this.rolId = rolId;
+        this.user = userId;
+        this.rol = rolId;
     }
 
     public UserRol() {
@@ -62,19 +65,19 @@ public class UserRol {
         this.create_at = create_at;
     }
 
-    public User getUserId() {
-        return userId;
+    public User getUser() {
+        return user;
     }
 
-    public void setUserId(User userId) {
-        this.userId = userId;
+    public void setUser(User user) {
+        this.user = user;
     }
 
-    public Rol getRolId() {
-        return rolId;
+    public Rol getRol() {
+        return rol;
     }
 
-    public void setRolId(Rol rolId) {
-        this.rolId = rolId;
+    public void setRol(Rol rol) {
+        this.rol = rol;
     }
 }

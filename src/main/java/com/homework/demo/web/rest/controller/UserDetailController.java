@@ -1,4 +1,4 @@
-package com.homework.demo.web.rest;
+package com.homework.demo.web.rest.controller;
 
 import com.homework.demo.domain.entities.UserDetail;
 import com.homework.demo.dto.UserDetailDTO;
@@ -32,19 +32,13 @@ public class UserDetailController {
 
     @PostMapping(path = "/create")
     public ResponseEntity<UserDetailDTO> createUserDetail(@RequestBody UserDetailDTO userDetail) throws URISyntaxException {
-        if (userDetail.getId() != null) {
-            throw new IllegalArgumentException(
-                    "A user  is been created with this userId, please review the  request body");
-        }
-
-        return ResponseEntity.created(
-                new URI("/v1/users" + userDetail.getId())).body(userDetailServices.createUserDetail(userDetail));
+        return ResponseEntity.created(null).body(userDetailServices.createUserDetail(userDetail));
     }
 
     @PutMapping(path = "/update/{id}")
-    public ResponseEntity<UserDetailDTO> updateUserDetail(@PathVariable("id") Integer userDetailId,
+    public ResponseEntity<UserDetailDTO> updateUserDetail(@PathVariable("id") Long userDetailId,
                                                           @RequestBody UserDetailDTO userDetail) {
-        return null;
+        return ResponseEntity.ok().body(userDetailServices.updateUserDetail(userDetailId, userDetail));
     }
 
     @DeleteMapping(path = "/delete/{id}")

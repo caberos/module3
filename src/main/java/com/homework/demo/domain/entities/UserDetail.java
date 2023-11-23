@@ -2,6 +2,8 @@ package com.homework.demo.domain.entities;
 
 
 import jakarta.persistence.*;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import java.time.LocalDateTime;
 
@@ -10,9 +12,7 @@ import java.time.LocalDateTime;
 public class UserDetail {
 
     @Id
-    @SequenceGenerator(name = "user_sequence", allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "user_sequence")
-    @Column(name = "user_detail_id")
+    @Column(name = "id")
     private Long id;
     @Column(name = "first_name")
     private String firstName;
@@ -25,9 +25,10 @@ public class UserDetail {
     @Column(name = "birthday")
     private LocalDateTime birthday;
 
-    @OneToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "user_id")
-    private User userId;
+    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinColumn(foreignKey = @ForeignKey(name = "user_id"), nullable = true)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    private User user;
 
     public UserDetail(Long id, String firstName, String lastName, Integer age, LocalDateTime birthday) {
         this.id = id;
@@ -80,11 +81,11 @@ public class UserDetail {
         this.birthday = birthday;
     }
 
-    public User getUserId() {
-        return userId;
+    public User getUser() {
+        return user;
     }
 
-    public void setUserId(User userId) {
-        this.userId = userId;
+    public void setUser(User user) {
+        this.user = user;
     }
 }

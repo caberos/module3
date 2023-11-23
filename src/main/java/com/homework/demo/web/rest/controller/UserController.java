@@ -1,8 +1,9 @@
-package com.homework.demo.web.rest;
+package com.homework.demo.web.rest.controller;
 
 import com.homework.demo.domain.entities.User;
 import com.homework.demo.dto.UserDTO;
 import com.homework.demo.services.UserServices;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -42,12 +43,12 @@ public class UserController {
         return ResponseEntity.ok().body(userServices.createUser(user));
     }
 
-    @PutMapping(path = "/updateUser/{id}")
-    public ResponseEntity<UserDTO> updateUser(@PathVariable("id") Long userId, @RequestBody UserDTO user) {
+    @PutMapping(path = "/update/{id}")
+    public ResponseEntity<UserDTO> updateUser(@PathVariable("id") Long userId,@Valid @RequestBody UserDTO user) {
         return ResponseEntity.ok().body(userServices.updateUser(userId, user));
     }
 
-    @DeleteMapping(path = "/deleteUser/{id}")
+    @DeleteMapping(path = "/delete/{id}")
     public ResponseEntity<Integer> deleteUser(@PathVariable("id") Integer userId) {
         return ResponseEntity.status(HttpStatus.OK).body(userServices.deleteUser(userId));
     }

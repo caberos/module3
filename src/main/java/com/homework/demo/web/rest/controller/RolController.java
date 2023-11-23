@@ -1,7 +1,9 @@
-package com.homework.demo.web.rest;
+package com.homework.demo.web.rest.controller;
 
 import com.homework.demo.dto.RolDTO;
 import com.homework.demo.services.RolServices;
+import com.homework.demo.web.rest.exception.ApiRequestException;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -31,19 +33,18 @@ public class RolController {
     }
 
     @PostMapping(path = "/create")
-    public ResponseEntity<RolDTO> createRol(@RequestBody RolDTO rolDTO) throws URISyntaxException {
-        if (rolDTO.getId() == null) {
-            throw new IllegalArgumentException(
-                    "A Rol is been created with this rolId, please review the  request body");
+    public ResponseEntity<RolDTO> createRol(@Valid @RequestBody RolDTO rolDTO) throws URISyntaxException {
+        if(rolDTO == null){
+            throw new ApiRequestException("Invalid input data. Please check the provided information.");
         }
-
-        return ResponseEntity.created(
-                        new URI("/v1/listRol" + rolDTO.getId()))
-                .body(rolServices.createRol(rolDTO));
+        return ResponseEntity.created(null).body(rolServices.createRol(rolDTO));
     }
 
     @PutMapping(path = "/update/{id}")
     public ResponseEntity<RolDTO> updateRol(@PathVariable("id") Integer rolId, @RequestBody RolDTO rol) {
+        if(rol == null){
+            throw new ApiRequestException("Invalid input data. Please check the provided information.");
+        }
         return ResponseEntity.ok().body(rolServices.updateRol(rolId, rol));
     }
 

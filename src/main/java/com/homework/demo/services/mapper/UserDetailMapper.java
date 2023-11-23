@@ -10,7 +10,7 @@ public class UserDetailMapper implements CustomMapper<UserDetailDTO, UserDetail>
     public UserDetailDTO toDto(UserDetail userDetail) {
         UserDetailDTO userDetailDTO = new UserDetailDTO();
         userDetailDTO.setId(userDetail.getId());
-        userDetailDTO.setUser(userDetail.getUserId());
+        userDetailDTO.setUser(userDetail.getUser());
         userDetailDTO.setAge(userDetail.getAge());
         userDetailDTO.setFirstName(userDetail.getFirstName());
         userDetailDTO.setLastName(userDetail.getLastName());
@@ -25,7 +25,7 @@ public class UserDetailMapper implements CustomMapper<UserDetailDTO, UserDetail>
         userDetail.setFirstName(userDetailDTO.getFirstName());
         userDetail.setLastName(userDetailDTO.getLastName());
         userDetail.setAge(userDetailDTO.getAge());
-        userDetail.setUserId(userDetailDTO.getUser());
+        userDetail.setUser(userDetailDTO.getUser());
         return userDetail;
     }
 }

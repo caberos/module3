@@ -1,4 +1,4 @@
-package com.homework.demo.web.rest;
+package com.homework.demo.web.rest.controller;
 
 import com.homework.demo.dto.UserRolDTO;
 import com.homework.demo.services.UserRolServices;
@@ -27,19 +27,14 @@ public class UserRolController {
         return ResponseEntity.ok().body(userRolServices.listUserRol());
     }
 
-    @GetMapping(path = "/getUser/{id}")
+    @GetMapping(path = "/get/{id}")
     public ResponseEntity<UserRolDTO> getUserRol(@PathVariable("id") Integer userRolId) {
         return ResponseEntity.ok().body(userRolServices.getUserRol(userRolId));
     }
 
     @PostMapping(path = "/create")
     public ResponseEntity<UserRolDTO> createRolUser(@RequestBody UserRolDTO userRol) throws URISyntaxException {
-        if (userRol.getId() != null) {
-            throw new IllegalArgumentException(
-                    "A user  is been created with this userId, please review the  request body");
-        }
-        return ResponseEntity.created(
-                new URI("/v1/userRol" + userRol.getId())).body(userRolServices.createUserRol(userRol));
+        return ResponseEntity.created(null).body(userRolServices.createUserRol(userRol));
     }
 
 
@@ -52,6 +47,11 @@ public class UserRolController {
     public Integer deleteUserRol(@PathVariable("id") Integer userIdRol) {
         userRolServices.deleteUserRol(userIdRol);
         return userIdRol;
+    }
+
+    @PatchMapping(path = "/active/{id}")
+    public boolean setActive(@PathVariable("id")Integer userIdRol){
+        return userRolServices.setActive(userIdRol);
     }
 
 

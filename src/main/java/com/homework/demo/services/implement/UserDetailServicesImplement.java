@@ -55,7 +55,7 @@ public class UserDetailServicesImplement implements UserDetailServices {
         userDetailRes.setLastName(userDetail.getLastName());
         userDetailRes.setAge(userDetail.getAge());
         userDetailRes.setBirthday(userDetail.getBirthday());
-        userDetailRes.setUserId(userDetail.getUser());
+        userDetailRes.setUser(userDetail.getUser());
         userDetailRepository.save(userDetailRes);
         return this.userDetailMapper.toDto(userDetailRes);
     }

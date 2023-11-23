@@ -17,4 +17,6 @@ public interface UserRolServices {
     UserRolDTO updateUserRol(Integer id, UserRolDTO userRol);
 
     Integer deleteUserRol(Integer id);
+
+    boolean setActive(Integer id);
 }
