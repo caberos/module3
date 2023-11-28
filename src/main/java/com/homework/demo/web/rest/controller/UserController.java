@@ -3,6 +3,7 @@ package com.homework.demo.web.rest.controller;
 import com.homework.demo.domain.entities.User;
 import com.homework.demo.dto.UserDTO;
 import com.homework.demo.services.UserServices;
+import com.homework.demo.web.rest.exception.ApiRequestException;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -28,19 +29,17 @@ public class UserController {
         return ResponseEntity.ok().body(userServices.listUsers());
     }
 
-    @GetMapping(path = "/getUser/{id}")
+    @GetMapping(path = "/get/{id}")
     public ResponseEntity<UserDTO> getUser(@PathVariable("id") Long userId) {
         return ResponseEntity.ok().body(userServices.getUser(userId));
     }
 
     @PostMapping(path = "/create")
     public ResponseEntity<UserDTO> createUser(@RequestBody UserDTO user) throws URISyntaxException {
-        if (user.getId() == null) {
-            throw new IllegalArgumentException(
-                    "A user  is been created with this userId, please review the  request body");
+        if(user == null){
+            throw new ApiRequestException("Invalid input data. Please check the provided information.");
         }
-        System.out.println(user);
-        return ResponseEntity.ok().body(userServices.createUser(user));
+        return ResponseEntity.created(null).body(userServices.createUser(user));
     }
 
     @PutMapping(path = "/update/{id}")

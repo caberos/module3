@@ -12,10 +12,10 @@ public class UserMapper implements CustomMapper<UserDTO, User>{
     public UserDTO toDto(User user) {
         UserDTO userDTO = new UserDTO();
         userDTO.setId(user.getId());
-        userDTO.setUserName(userDTO.getUserName());
-        userDTO.setEmail(userDTO.getEmail());
-        userDTO.setPassword(userDTO.getPassword());
-        userDTO.setCreateAt(userDTO.getCreateAt());
+        userDTO.setUserName(user.getUserName());
+        userDTO.setEmail(user.getEmail());
+        userDTO.setPassword(user.getPassword());
+        userDTO.setCreateAt(user.getCreateAt());
         return userDTO;
     }
 
